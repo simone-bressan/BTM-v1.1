@@ -1,6 +1,6 @@
 # Bressan Telemetry Mapping (BTM) v1.1
 
-[![ESA OSIP Campaign](https://img.shields.io/badge/ESA%20OSIP-Qualified-blue.svg)](https://ideas.esa.int/)
+[![ESA OSIP - Candidate](https://img.shields.io/badge/ESA%20OSIP-Candidate-blue.svg)](https://ideas.esa.int/)
 [![Zenodo Report DOI](https://img.shields.io/badge/Zenodo%20Report-10.5281%2Fzenodo.22288196-success.svg)](https://doi.org/10.5281/zenodo.22288196)
 [![Zenodo Preprint DOI](https://img.shields.io/badge/Zenodo%20Preprint-10.5281%2Fzenodo.22215083-blueviolet.svg)](https://doi.org/10.5281/zenodo.22215083)
 [![Language](https://img.shields.io/badge/Language-C99-orange.svg)](#)
@@ -8,7 +8,7 @@
 
 An ultra-lightweight, high-performance, and radiation-robust telemetry encoding framework designed for modern space missions, CubeSats, and deep-space probes. Derived from a novel application of 2-adic valuation and odd-part integer decomposition, BTM enables deterministic, constant-time \\(O(1)\\) bit-packing with **zero dynamic RAM overhead**.
 
-Developed by **Simone Bressan** (Independent Aerospace & Telecommunications Researcher, Cormons, Italy) and currently in the **formal qualification phase** at the **European Space Agency (ESA)** under OSIP Campaign ID: `I-2026-14190`.
+Developed by **Simone Bressan** (Independent Aerospace & Telecommunications Researcher, Cormons, Italy) and submitted to the **European Space Agency (ESA)** under the Open Space Innovation Platform (OSIP).
 
 ---
 
@@ -84,10 +84,10 @@ Expected Output
 📜 Academic and Research References
 To read the theoretical foundations, detailed mathematical proofs, and industrial applications:
 Applied Engineering Report (BTM Protocol v11):
-Bressan, S. (2026). Deterministic Bit-Packing and Telemetry Encoding via Bressan's Integer Sequence Transformation. Zenodo.
+Bressan, S. (2026). BTM v11: A Deterministic O(1) Zero-RAM Telemetry Compression Protocol for Space Systems via 2-Adic Valuation and Odd-Part Integer Decomposition. Zenodo.
 📄 Technical Report (DOI: 10.5281/zenodo.22288196) (Resolves always to the latest version).
 Mathematical Foundations (Bressan's Invariant Theorem):
-Bressan, S. (2026). On an Invariant Ratio Involving Prime Gaps and Odd Components of Twin Primes. Zenodo.
+Bressan, S. (2026). On the Invariant Ratio of 2-Adic Valuation and Odd Residue Transitions in Natural Integer Sequences. Zenodo.
 📄 Mathematical Preprint (DOI: 10.5281/zenodo.22215083) (Resolves always to the latest version).
 🌐 Open Science Commitment
 This project is released under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. We believe in collaborative, open, and accessible space engineering.
