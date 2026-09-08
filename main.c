@@ -41,7 +41,7 @@ int main() {
     double base_temp = 20.0; // 20 degrees Celsius base
     double amplitude = 15.0; // +/- 15 degrees day-to-night variation
     
-    raw_telemetry = 20; // CORRETTO! Assegnazione del valore iniziale al primo elemento dell'array
+    raw_telemetry = 20; // CORRETTO: Inizializzazione del primo elemento dell'array
     for (int i = 1; i < N; i++) {
         double cycle = 2.0 * M_PI * (double)i / 200.0; // 5 cycles in the telemetry block
         double noise = random_gaussian() * 2.0;       // Gaussian thermal noise (stddev = 2.0)
