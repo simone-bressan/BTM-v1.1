@@ -41,12 +41,12 @@ int main() {
     double base_temp = 20.0; // 20 degrees Celsius base
     double amplitude = 15.0; // +/- 15 degrees day-to-night variation
     
-    raw_telemetry = 20; // CORRETTO: Inizializzazione del primo elemento dell'array
+    *raw_telemetry = 20; // CORRETTO! Inizializzazione del primo elemento senza parentesi quadre
     for (int i = 1; i < N; i++) {
         double cycle = 2.0 * M_PI * (double)i / 200.0; // 5 cycles in the telemetry block
         double noise = random_gaussian() * 2.0;       // Gaussian thermal noise (stddev = 2.0)
         double current_temp = base_temp + amplitude * sin(cycle) + noise;
-        raw_telemetry[i] = (int16_t)round(current_temp);
+        *(raw_telemetry + i) = (int16_t)round(current_temp);
     }
     
     // Allocate a buffer for the bitstream (max worst-case size: N * 4 bytes is extremely safe)
@@ -87,11 +87,11 @@ int main() {
     // Verify results
     int mismatches = 0;
     for (int i = 0; i < N; i++) {
-        if (raw_telemetry[i] != reconstructed[i]) {
+        if (*(raw_telemetry + i) != *(reconstructed + i)) {
             mismatches++;
             if (mismatches <= 5) {
                 printf("    - ERROR: Mismatch at index %d: Original=%d, Reconstructed=%d\n", 
-                       i, raw_telemetry[i], reconstructed[i]);
+                       i, *(raw_telemetry + i), *(reconstructed + i));
             }
         }
     }
