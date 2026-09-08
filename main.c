@@ -43,8 +43,8 @@ int main() {
     
     raw_telemetry = 20; // CORRETTO! Assegnazione del valore iniziale al primo elemento dell'array
     for (int i = 1; i < N; i++) {
-        double cycle = 2.0 * M_PI * (double)i / 200.0; // 5 cicli nel blocco di telemetria
-        double noise = random_gaussian() * 2.0;       // Rumore termico gaussiano (deviazione standard = 2.0)
+        double cycle = 2.0 * M_PI * (double)i / 200.0; // 5 cycles in the telemetry block
+        double noise = random_gaussian() * 2.0;       // Gaussian thermal noise (stddev = 2.0)
         double current_temp = base_temp + amplitude * sin(cycle) + noise;
         raw_telemetry[i] = (int16_t)round(current_temp);
     }
@@ -60,7 +60,7 @@ int main() {
     }
     
     BitStream stream;
-    // init_bitstream con 'true' per azzerare in sicurezza il buffer in RAM ed evitare contaminazioni
+    // init_bitstream with 'true' to safely zero-out the buffer in RAM and avoid contamination
     init_bitstream(&stream, bit_buffer, max_buffer_bytes, true);
     
     // Execute packing
@@ -75,13 +75,13 @@ int main() {
     printf("[+] Compression Completed.\n");
     printf("    - Total bits packed:    %zu bits\n", packed_bits);
     printf("    - Average sample size:   %.2f bits/sample (Uncompressed: 16.00)\n", avg_bit_size);
-    printf("    - Compression Ratio:     %.2f
-    - Bandwidth Savings:     %.2f%%\n\n", compression_ratio, bandwidth_saving);
+    printf("    - Compression Ratio:     %.2fx\n", compression_ratio);
+    printf("    - Bandwidth Savings:     %.2f%%\n\n", bandwidth_saving);
     
     // Execute reconstruction
     printf("[*] Executing ground-station reconstruction (lossless unpacking)...\n");
     BitStream in_stream;
-    init_bitstream(&in_stream, bit_buffer, max_buffer_bytes, false); // Non serve azzerare il buffer in lettura
+    init_bitstream(&in_stream, bit_buffer, max_buffer_bytes, false); // No need to clear buffer for reading!
     BressanReconstruct(&in_stream, N, reconstructed);
     
     // Verify results
