@@ -83,10 +83,10 @@ static inline void write_bits(BitStream *stream, uint32_t value, uint16_t length
         // Extract bit MSB-first
         uint8_t bit = (value >> (length - 1 - i)) & 1;
         if (bit) {
-            stream->buffer[byte_idx] |= (1 << (7 - bit_idx));
+            *(stream->buffer + byte_idx) |= (1 << (7 - bit_idx));
         } else {
             // Explicitly clearing the bit guarantees safety even if the buffer contains dirty memory!
-            stream->buffer[byte_idx] &= ~(1 << (7 - bit_idx));
+            *(stream->buffer + byte_idx) &= ~(1 << (7 - bit_idx));
         }
         stream->bit_position++;
     }
@@ -100,7 +100,7 @@ static inline uint32_t read_bits(BitStream *stream, uint16_t length) {
         if (byte_idx >= stream->capacity_bytes) {
             return 0;
         }
-        uint8_t bit = (stream->buffer[byte_idx] >> (7 - bit_idx)) & 1;
+        uint8_t bit = (*(stream->buffer + byte_idx) >> (7 - bit_idx)) & 1;
         value = (value << 1) | bit;
         stream->bit_position++;
     }
@@ -121,8 +121,8 @@ static inline void BressanTransformPack(const int16_t *raw_telemetry, int N, Bit
     int16_t prev_val = 0;
     for (int i = 0; i < N; i++) {
         // 1. Delta Encoding (performed in 32-bit to prevent signed 16-bit overflows)
-        int32_t delta = (int32_t)raw_telemetry[i] - (int32_t)prev_val;
-        prev_val = raw_telemetry[i];
+        int32_t delta = (int32_t)*(raw_telemetry + i) - (int32_t)prev_val;
+        prev_val = *(raw_telemetry + i);
         
         // 2. ZigZag Mapping (bijective mapping from Z to N using 32-bit range)
         uint32_t zz = (delta >= 0) ? (2 * (uint32_t)delta) : (2 * (uint32_t)(-delta) - 1);
@@ -195,8 +195,8 @@ static inline void BressanReconstruct(BitStream *in_stream, int N, int16_t *out_
         
         // 8. Accumulate telemetry
         int32_t reconstructed_val = (int32_t)prev_val + delta;
-        out_telemetry[i] = (int16_t)reconstructed_val;
-        prev_val = out_telemetry[i];
+        *(out_telemetry + i) = (int16_t)reconstructed_val;
+        prev_val = *(out_telemetry + i);
     }
 }
 
